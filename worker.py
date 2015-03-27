@@ -12,13 +12,15 @@ wiringpi2.pinMode(pinIn, 0)
 
 try:
 	while True:
-		if wiringpi2.digitalRead(pinIn) == 1:
-			if state == 0:
-				state = 1
+		wiringpi2.delay(2)
+		if wiringpi2.digitalRead(pinIn) == 0:
+			if state == 1:
+				print "Starting\n"
+				state = 0
 				t = time.time()
 		else:
-			if state == 1:
-				state = 0
+			if state == 0:
+				state = 1
 				delta = time.time() - t
 				print("Delta: " + str(delta) + "!\n")
 				secs = str(int(math.floor(delta)))
@@ -28,6 +30,7 @@ try:
 					l = requests.get(url)
 				except:
 					pass
+
 
 except KeyboardInterrupt:
 	print ""
